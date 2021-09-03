@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/signup", to: "users#new"
   post "/signup", to: "users#create"
   resources :users
+  resources :account_activations, only: :edit
 
   get "/login", to: "session#new"
   post "/login", to: "session#create"
