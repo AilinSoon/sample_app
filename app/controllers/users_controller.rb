@@ -9,8 +9,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by id: params[:id]
-    return if @user
+    @microposts = @user.microposts.paginate(page: params[:page])
 
+    return if @user
     flash[:danger] = "User not found"
     redirect_to root_path
   end
@@ -54,7 +55,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
- private
+private
 
   def user_params
     params.require(:user).permit :name, :email, :password, :password_confirmation
